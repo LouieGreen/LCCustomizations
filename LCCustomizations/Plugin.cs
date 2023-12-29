@@ -25,7 +25,6 @@ namespace LCCustomizations
         public static ConfigEntry<bool> enableStaticTimeSpeed;
         public static ConfigEntry<bool> enableDynamicTimeSpeed;
         public static ConfigEntry<float> staticTimeSpeed;
-//        public static ConfigEntry<float> dynamicTimeSpeedMultiplier;
         public static ConfigEntry<bool> disableScrapLossOnWipe;
         public static ConfigEntry<bool> enableInfiniteSprint;
 
@@ -39,7 +38,6 @@ namespace LCCustomizations
             enableStaticTimeSpeed = Config.Bind<bool>("General", "enableStaticTimeSpeed", false, "Enables the static time speed modifier.");
             staticTimeSpeed = Config.Bind<float>("General", "staticTimeSpeed", 0.5f, "Enabled if the 'enableStaticTimeSpeed' is set to true. Slows the passage of time, game default is 1f.");
             enableDynamicTimeSpeed = Config.Bind<bool>("General", "enableDynamicTimeSpeed", true, "Enables the dynamic time speed modifier - depends on the number of people at the start of the level. 1 is 0.5, 2 is 0.65, 3 is 0.8 and 4 is 1.0 (default). Disabled if static is enabled.");
-            //dynamicTimeSpeedMultiplier = Config.Bind<float>("General", "dynamicTimeSpeedMultiplier", 0.15f, "Enabled if the 'enableDynamicTimeSpeed' is set to true. Slows the passage of time, game default is 1f.");
             disableScrapLossOnWipe = Config.Bind<bool>("General", "disableScrapLossOnWipe", true, "Disabled scrap loss on team wipe, default true.");
             enableInfiniteSprint = Config.Bind<bool>("General", "enableInfiniteSprint", false, "Enabled infinite sprint, default false.");
 
@@ -54,7 +52,10 @@ namespace LCCustomizations
 
             //dynamic time logs
             if (enableDynamicTimeSpeed.Value)
-                Logger.LogInfo("Dynamic time speed modifier enabled:  " + enableDynamicTimeSpeed.Value);
+                if (!enableStaticTimeSpeed.Value)
+                    Logger.LogInfo("Dynamic time speed modifier enabled:  " + enableDynamicTimeSpeed.Value);
+                else
+                    Logger.LogInfo("Dynamic time speed disabled because static enabled." + enableDynamicTimeSpeed.Value);
 
 
             //other logs
