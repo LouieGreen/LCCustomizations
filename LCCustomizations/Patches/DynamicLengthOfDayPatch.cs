@@ -23,7 +23,7 @@ namespace LCCustomizations.Patches
                 timeSpeed = 0.65f;
             else if (numPlayers == 3)
                 timeSpeed = 0.8f;
-            else if (numPlayers > 4)
+            else if (numPlayers >= 4)
                 timeSpeed = 1.0f;
 
             ___globalTimeSpeedMultiplier = timeSpeed;
